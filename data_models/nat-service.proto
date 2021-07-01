@@ -1,0 +1,56 @@
+// This is a test module to learn the basic of 
+// the Data model with Google Protobuf
+syntax = "proto3";
+
+package karneliuk_nat_service_model;
+
+// Custom Data Types
+enum ServiceTypes {
+    IPVPN = 0;
+    EVPN = 1;
+}
+
+
+// Main Data Structure
+message Customers {
+    message Customer {
+        int64 id = 1;
+        string name = 2;
+        string mail = 3;
+
+        message Services {
+            message Service {
+                int64 id = 1;
+                ServiceTypes type = 2;
+
+                message Sites {
+                    message Site {
+                        int64 id = 1;
+                        string sitename = 2;
+                        
+                        message Attributes {
+                            string rd = 1;
+                            string rt = 2;
+                        }
+                        Attributes attributes = 3;
+
+                        message Endpoints {
+                            message Endpoint {
+                                string hostname = 1;
+                                string interface = 2;
+                                string ip_address = 3;
+                            }
+                            Endpoint endpoint = 1;
+                        }
+                        Endpoints endpoints = 4;
+                    }
+                    repeated Site site = 1;
+                }
+                Sites sites = 3;
+            }    
+            repeated Service service = 1;
+        }
+        Services services = 4;
+    }
+    repeated Customer customer = 1;
+}

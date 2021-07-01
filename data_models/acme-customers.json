@@ -1,0 +1,40 @@
+{
+    "customers": {
+        "customer": [
+            {
+                "id": 0,
+                "name": "Super Tools",
+                "mail": "info@supertools.com",
+                "services": {
+                    "service": [
+                        {
+                            "id": 0,
+                            "type": "EVPN",
+                            "sites": {
+                                "site": [
+                                    {
+                                        "id": 0,
+                                        "site-name": "New York",
+                                        "attributes": {
+                                            "rd": "65000:1",
+                                            "rt": "65000:1"
+                                        },
+                                        "endpoints": {
+                                            "endpoint": [
+                                                {
+                                                    "hostname": "nyc_pe_1",
+                                                    "interface": "GigabitEthernet0/0/0/0",
+                                                    "ip_address": "fc00:169:254:255::1/64"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

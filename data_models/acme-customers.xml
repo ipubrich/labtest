@@ -1,0 +1,31 @@
+<?xml version=”1.0” encoding=“UTF-8”?>
+<customers xmlns="https://training.karneliuk.com/network_autionation/service">
+  <customer>
+    <id>0</id>
+    <name>Super Tools</name>
+    <mail>info@supertools.com</mail>
+    <services>
+      <service>
+        <id>0</id>
+        <type>IPVPN</type>
+        <sites>
+          <site>
+            <id>0</id>
+            <site-name>New York</site-name>
+            <attributes>
+              <rd>65000:1</rd>
+              <rt>65000:1</rd>
+            </attributes>
+            <endpoints>
+              <endpoint>
+                <hostname>us_nyc_pe_1</hostname>
+                <interface>GigabitEtheret0/0/0/0</interface>
+                <ip_address>fc00:169:254:255::1/64</ip_address>
+              </endpoint>
+            </endpoints>
+          </site>
+        </sites>
+      </service>
+    </services>
+  </customer>
+</customers>
