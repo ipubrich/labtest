@@ -1,4 +1,16 @@
- - afi: ipv4
- safi: unicast
- neighbors:
+---
+bgp:
+ address_family:
+   - afi: ipv4
+   safi: unicast
+   neighbors:
+      - neighbor: 10.0.0.2
+        peer_as: 65011
+        state: Active
+      - neighbor: 10.0.0.4
+        peer_as: 65022
+        state: Active
+      - neighbor: 10.0.0.8
+        peer_as: 65044
+        state: Active
 ...

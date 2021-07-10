@@ -1,4 +1,7 @@
- - afi: ipv4
- safi: unicast
- neighbors:
+---
+bgp:
+ address_family:
+   - afi: ipv4
+   safi: unicast
+   neighbors:
 ...
