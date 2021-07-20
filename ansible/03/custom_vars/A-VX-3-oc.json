@@ -6,7 +6,7 @@
           "config": {
             "name": "default",
             "enabled": True,
-            "router_id": "10.0.255.44",
+            "router_id": "10.0.255.33",
             "enabled_address_families": ["IPV4_UNICAST"]
           },
           "protocols": {
@@ -23,7 +23,7 @@
                   "global": {
                     "config": {
                       "as": 65033,
-                      "router_id": "10.0.255.44"
+                      "router_id": "10.0.255.33"
                     },
                     "afi_safis": {
                       "afi_safi": [

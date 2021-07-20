@@ -6,7 +6,7 @@
           "config": {
             "name": "default",
             "enabled": True,
-            "router_id": "10.0.255.33",
+            "router_id": "10.0.255.44",
             "enabled_address_families": ["IPV4_UNICAST"]
           },
           "protocols": {
@@ -22,8 +22,8 @@
                 "bgp": {
                   "global": {
                     "config": {
-                      "as": 65033,
-                      "router_id": "10.0.255.33"
+                      "as": 65044,
+                      "router_id": "10.0.255.44"
                     },
                     "afi_safis": {
                       "afi_safi": [
@@ -44,7 +44,7 @@
                         "config": {
                           "neighbor_address": "10.0.0.9",
                           "enabled": True,
-                          "peer_as": 65044
+                          "peer_as": 65033
                         },
                         "afi_safis": {
                           "afi_safi": [
@@ -56,8 +56,8 @@
                               },
                               "apply_policy": {
                                 "config": {
-                                  "import_policy": "RP_ALLOW_LO",
-                                  "export_policy": "RP_ALLOW_LO"
+                                  "import_policy": "RP_PASS_LO",
+                                  "export_policy": "RP_PASS_LO"
                                 }
                               }
                             }
@@ -81,8 +81,8 @@
                               },
                               "apply_policy": {
                                 "config": {
-                                  "import_policy": "RP_ALLOW_LO",
-                                  "export_policy": "RP_ALLOW_LO"
+                                  "import_policy": "RP_PASS_LO",
+                                  "export_policy": "RP_PASS_LO"
                                 }
                               }
                             }

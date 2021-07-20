@@ -22,7 +22,7 @@
                 "bgp": {
                   "global": {
                     "config": {
-                      "as": 65033,
+                      "as": 65022,
                       "router_id": "10.0.255.22"
                     },
                     "afi_safis": {
@@ -44,7 +44,7 @@
                         "config": {
                           "neighbor_address": "10.0.0.0",
                           "enabled": "True",
-                          "peer_as": 65044
+                          "peer_as": 65011
                         },
                         "afi_safis": {
                           "afi_safi": [
@@ -56,8 +56,8 @@
                               },
                               "apply_policy": {
                                 "config": {
-                                  "import_policy": "RP_ALLOW_LO",
-                                  "export_policy": "RP_ALLOW_LO"
+                                  "import_policy": "RP_PASS_LO",
+                                  "export_policy": "RP_PASS_LO"
                                 }
                               }
                             }
@@ -69,7 +69,7 @@
                         "config": {
                           "neighbor_address": "10.0.0.5",
                           "enabled": "True",
-                          "peer_as": 65044
+                          "peer_as": 65033
                         },
                         "afi_safis": {
                           "afi_safi": [
@@ -81,8 +81,8 @@
                               },
                               "apply_policy": {
                                 "config": {
-                                  "import_policy": "RP_ALLOW_LO",
-                                  "export_policy": "RP_ALLOW_LO"
+                                  "import_policy": "RP_PASS_LO",
+                                  "export_policy": "RP_PASS_LO"
                                 }
                               }
                             }
@@ -106,8 +106,8 @@
                               },
                               "apply_policy": {
                                 "config": {
-                                  "import_policy": "RP_ALLOW_LO",
-                                  "export_policy": "RP_ALLOW_LO"
+                                  "import_policy": "RP_PASS_LO",
+                                  "export_policy": "RP_PASS_LO"
                                 }
                               }
                             }

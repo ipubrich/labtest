@@ -5,35 +5,35 @@
 {%          if p_entry.config.identifier == 'BGP' %}
 router bgp {{ p_entry.bgp.global.config.as }}
 {%              if p_entry.bgp.global.config.router_id is defined %}
-bgp router-id {{ p_entry.bgp.global.config.router_id }}
+ bgp router-id {{ p_entry.bgp.global.config.router_id }}
 {%              endif %}
 {%          for as_entry in p_entry.bgp.global.afi_safis.afi_safi %}
 {%              if as_entry.config.afi_safi_name == 'IPV4_UNICAST' %}
-address-family ipv4 unicast
+ address-family ipv4 unicast
 {%                  if p_entry.bgp.global.config.router_id is defined %}
-network {{ p_entry.bgp.global.config.router_id }}/32
+  network {{ p_entry.bgp.global.config.router_id }}/32
 {%                  endif %}
-!
+  !
 {%              endif %}
 {%          endfor %}
 {%  for n_entry in p_entry.bgp.neighbors.neighbor %}
-neighbor {{ n_entry.config.neighbor_address }}
-remote-as {{ n_entry.config.peer_as }}
+ neighbor {{ n_entry.config.neighbor_address }}
+  remote-as {{ n_entry.config.peer_as }}
 {%      for as_entry in n_entry.afi_safis.afi_safi %}
 {%          if as_entry.config.afi_safi_name == 'IPV4_UNICAST' %}
-address-family ipv4 unicast
+  address-family ipv4 unicast
 {%              if as_entry.apply_policy is defined and as_entry.apply_policy.config is defined %}
 {%                  if as_entry.apply_policy.config.import_policy %}
-route-policy {{ as_entry.apply_policy.config.import_policy }} in
+    route-policy {{ as_entry.apply_policy.config.import_policy }} in
 {%                  endif %}
 {%                      if as_entry.apply_policy.config.export_policy %}
-route-policy {{ as_entry.apply_policy.config.export_policy }} out
+    route-policy {{ as_entry.apply_policy.config.export_policy }} out
 {%                  endif %}
 {%              endif %}
-!
+    !
 {%          endif %}
 {%       endfor %}
-!
+  !
 {%  endfor %}
 !
 {%  endif %}

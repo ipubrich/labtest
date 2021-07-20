@@ -28,12 +28,15 @@
     - name: CISCO // APPLYING CONFIG
       cisco.iosxr.iosxr_config:
         src: "{{ temp_dir }}/{{ inventory_hostname }}_bgp.conf"
-      when: ansible_network_os == 'iosxr'
+      when: ansible_network_os == 'cisco.iosxr.iosxr'
+
+    - name: Pause until you can verify updates to an application were successful
+      pause:
 
     - name: ARISTA // APPLYING CONFIG
       arista.eos.eos_config:
         src: "{{ temp_dir }}/{{ inventory_hostname }}_bgp.conf"
-      when: ansible_network_os == 'eos'
+      when: ansible_network_os == 'arista.eos.eos'
       become: yes
       become_method: enable
 
@@ -64,7 +67,7 @@
         dest: "{{ temp_dir }}/{{ inventory_hostname }}_bgp.conf"
       delegate_to: localhost
     
-    - name: CUMULUS // APPLYING CONFIGip 
+    - name: CUMULUS // APPLYING CONFIGi
       community.network.nclu:
         template: "{{ lookup('template', 'templates/bgp_cumulus.j2')}}"
         commit: true
