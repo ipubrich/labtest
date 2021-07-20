@@ -1,0 +1,19 @@
+---
+- name: CUMULUS // CONFIGURING BGP -4-
+  community.network.nclu:
+    commands:
+      - net add bgp neighbor {{ item.config.neighbor_address }} remote-as {{ item.config.peer_as }}
+    commit: true
+  when: outer_item.identifier == 'BGP'
+  loop: "{{ outer_item.bgp.neighbors.neighbor }}"
+
+- name: CUMULUS // CONFIGURING BGP -5-
+  community.network.nclu:
+    commands:
+      - add bgp ipv4 unicast neighbor {{ item.config.neighbor_address }} activate
+      - add bgp ipv4 unicast neighbor {{ item.config.neighbor_address }} route-map {{ item.afi_safis.afi_safi[0].apply_policy.config.import_policy }} in
+      - add bgp ipv4 unicast neighbor {{ item.config.neighbor_address }} route-map {{ item.afi_safis.afi_safi[0].apply_policy.config.export_policy }} out
+    commit: true
+  when: outer_item.identifier == 'BGP' and item.afi_safis.afi_safi[0].config.afi_safi_name == 'IPV4_UNICAST'
+  loop: "{{ outer_item.bgp.neighbors.neighbor }}"
+...

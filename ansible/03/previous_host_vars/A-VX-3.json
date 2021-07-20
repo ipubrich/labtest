@@ -1,0 +1,110 @@
+{
+  "ansible_host": "169.254.255.53",
+  "ansible_user": "cumulus",
+  "ansible_password": "CumulusLinux!",
+  "interfaces": {
+    "interface": [
+      {
+        "name": "swp1",
+        "config": {
+          "name": "swp1",
+          "type": "ethernetCsmacd",
+          "mtu": 1514,
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "config": {
+                "index": 0,
+                "description": "Link to A-VX-1",
+                "enabled": true
+              },
+              "ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.0.3",
+                      "config": {
+                        "ip": "10.0.0.3",
+                        "prefix_length": 31
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "swp2",
+        "config": {
+          "name": "swp3",
+          "type": "ethernetCsmacd",
+          "mtu": 1514,
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "config": {
+                "index": 0,
+                "description": "Link to A-XR-2",
+                "enabled": true
+              },
+              "ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.0.5",
+                      "config": {
+                        "ip": "10.0.0.5",
+                        "prefix_length": 31
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "system",
+        "config": {
+          "name": "system",
+          "type": "softwareLoopback",
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "config": {
+                "index": 0,
+                "description": "Announced in BGP",
+                "enabled": true
+              },
+              "ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.255.33",
+                      "config": {
+                        "ip": "10.0.255.33",
+                        "prefix_length": 32
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

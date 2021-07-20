@@ -57,24 +57,29 @@ echo "     neighbors:" >> "${RESULT_DIR}/${1}_result.yaml"
 
 input="${TEMP_DIR}/${1}_raw_data.txt"
 while read -r LINE; do
-
     case ${2} in
         'Cisco XR-V')
+            echo "Cisco case check debug : ${LINE}"
             NEIGHBOR_IP=$(echo "${LINE}" | awk '/^[0-9]/ {print $1}')
+            echo "neighbour IP $NEIGHBOR_IP"
             NEIGHBOR_ASN=$(echo "${LINE}" | awk '/^[0-9]/ {print $3}')
             NEIGHBOR_STATE=$(echo "${LINE}" | awk '/^[0-9]/ {print $10}');;
         'Arista EOS')
-            NEIGHBOR_IP=$(echo "${LINE}" | awk '/^ [0-9]/ {print 1}')
-            NEIGHBOR_ASN=$(echo "${LINE}" | awk '/^ [0-9]/ {print 1}')
-            NEIGHBOR_STATE=$(echo "${LINE}" | awk '/^ [0-9]/ {print 1}');;
+            echo "Arista case check debug : ${LINE}"
+            NEIGHBOR_IP=$(echo "${LINE}" | awk '/^  [0-9]/ {print $1}')
+            echo "neighbour IP $NEIGHBOR_IP"
+            NEIGHBOR_ASN=$(echo "${LINE}" | awk '/^  [0-9]/ {print $3}')
+            NEIGHBOR_STATE=$(echo "${LINE}" | awk '/^  [0-9]/ {print $9}');;
         'Cumulus Linux')
+            echo "Cumulus case check debug : ${LINE}"
             NEIGHBOR_IP=$(echo "${LINE}" | awk '/^[0-9]/ {print $1}')
+            echo "neighbour IP $NEIGHBOR_IP"
             NEIGHBOR_ASN=$(echo "${LINE}" | awk '/^[0-9]/ {print $3}')
             NEIGHBOR_STATE=$(echo "${LINE}" | awk '/^[0-9]/ {print $10}');;
     esac
     if [[ ${NEIGHBOR_IP} != '' ]]; then
-        echo "LINE HERE ${LINE}"
-        echo "${NEIGHBOR_IP}"
+        echo "DEBUG HERE ${LINE}"
+        #echo "${NEIGHBOR_IP}"
         echo "      - neighbor: ${NEIGHBOR_IP}" >> "${RESULT_DIR}/${1}_result.yaml"
         echo "        peer_as: ${NEIGHBOR_ASN}" >> "${RESULT_DIR}/${1}_result.yaml"
         echo "        state: ${NEIGHBOR_STATE}" >> "${RESULT_DIR}/${1}_result.yaml"

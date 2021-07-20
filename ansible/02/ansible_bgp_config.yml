@@ -1,0 +1,172 @@
+---
+- name: CONFIGURING NON-LINUX HOSTS
+  hosts: nonlinux
+  connection: ansible.netcommon.network_cli
+  gather_facts: no
+
+  tasks:
+    - name: IMPORTING VARIABLES
+      ansible.builtin.include_vars:
+        file: "host_vars/{{ inventory_hostname }}.json"
+
+    # CISCO
+    - name: CISCO // CONFIGURING BGP  -1-
+      cisco.iosxr.iosxr_config:
+        lines:
+          - bgp router-id {{ item.bgp.global.config.router_id }}
+        parents: router bgp {{ item.bgp.global.config.as }}
+      when: ansible_network_os == 'cisco.iosxr.iosxr' and item.identifier == 'BGP'
+      loop: "{{ network_instances.network_instance[0].protocols.protocol }}"
+
+    - name: CISCO // CONFIGURING BGP  -2-
+      cisco.iosxr.iosxr_config:
+        lines:
+          - network {{ item.bgp.global.config.router_id }}/32
+        parents:
+          - router bgp {{ item.bgp.global.config.as }}
+          - address-family ipv4 unicast
+      when: ansible_network_os == 'cisco.iosxr.iosxr' and item.identifier == 'BGP' and item.bgp.global.afi_safis.afi_safi[0].config.afi_safi_name == 'IPV4_UNICAST'
+      loop: "{{ network_instances.network_instance[0].protocols.protocol }}"
+
+    - name: CISCO // CONFIGURING BGP  -3-
+      ansible.builtin.include_tasks:
+        file: "{{ ansible_network_os }}_bgp_neighbors.yml"
+      when: ansible_network_os == 'cisco.iosxr.iosxr' and outer_item.identifier == 'BGP'
+      loop: "{{ network_instances.network_instance[0].protocols.protocol }}"
+      loop_control:
+        loop_var: outer_item
+
+    # ARISTA 
+    - name: ARISTA // ENABLE ROUTING  -0-
+      arista.eos.eos_config:
+        lines:
+          - ip routing
+          - service routing protocols model multi-agent
+      when: ansible_network_os == 'arista.eos.eos'
+      become: yes
+      become_method: enable
+
+    - name: ARISTA // CONFIGURING BGP -1-
+      arista.eos.eos_config:
+        lines:
+          - router-id {{ item.bgp.global.config.router_id }}
+        parents: router bgp {{ item.bgp.global.config.as }}
+      when: ansible_network_os == 'arista.eos.eos' and item.identifier == 'BGP'
+      loop: "{{ network_instances.network_instance[0].protocols.protocol }}"
+      become: yes
+      become_method: enable
+    
+    - name: ARISTA // CONFIGURING BGP -2-
+      arista.eos.eos_config:
+        lines:
+          - network {{ item.bgp.global.config.router_id }}/32
+        parents:
+          - router bgp {{ item.bgp.global.config.as }}
+          - address-family ipv4
+      when: ansible_network_os == 'arista.eos.eos' and item.identifier == 'BGP' and item.bgp.global.afi_safis.afi_safi[0].config.afi_safi_name == 'IPV4_UNICAST'
+      loop: "{{ network_instances.network_instance[0].protocols.protocol }}"
+      become: yes
+      become_method: enable
+
+    - name: ARISTA // CONFIGURING BGP -3-
+      ansible.builtin.include_tasks:
+        file: "{{ ansible_network_os }}_bgp_neighbors.yml"
+      when: ansible_network_os == 'arista.eos.eos' and outer_item.identifier == 'BGP'
+      loop: "{{ network_instances.network_instance[0].protocols.protocol }}"
+      loop_control:
+        loop_var: outer_item
+
+    # CUMULUS
+- name: CONFIGURING LINUX HOSTS
+  hosts: linux
+  gather_facts: no
+  collections:
+    - community.network
+  tasks:
+    - name: IMPORTING VARIABLES
+      ansible.builtin.include_vars:
+        file: "host_vars/{{ inventory_hostname }}.json"
+
+    - name: CUMULUS // CONFIGURING BGP -1-
+      community.network.nclu:
+        commands:
+          - add bgp autonomous-system {{ item.bgp.global.config.as }}
+          - add bgp router-id {{ item.bgp.global.config.router_id }}
+        commit: true
+      when: item.identifier == 'BGP'
+      loop: "{{ network_instances.network_instance[0].protocols.protocol }}"
+
+    - name: CUMULUS // CONFIGURING BGP -2-
+      community.network.nclu:
+        commands:
+          - add bgp ipv4 unicast network {{ item.bgp.global.config.router_id }}/32
+        commit: true
+      when: item.identifier == 'BGP' and item.bgp.global.afi_safis.afi_safi[0].config.afi_safi_name == 'IPV4_UNICAST'
+      loop: "{{ network_instances.network_instance[0].protocols.protocol }}"
+
+    - name: CUMULUS // CONFIGURING BGP -3-
+      ansible.builtin.include_tasks:
+        file: "cumulus_bgp_neighbors.yml"
+      when: outer_item.identifier == 'BGP'
+      loop: "{{ network_instances.network_instance[0].protocols.protocol }}"
+      loop_control:
+        loop_var: outer_item 
+
+    # VERIFY BGP
+
+    - name: CREATE DIRECTORY FOR OUTPUT FILES
+      ansible.builtin.file:
+        path: output
+        state: directory
+
+    - name: CISCO // COLLECT BGP INFO
+      cisco.iosxr.iosxr_command:
+        commands:
+          - show bgp ipv4 unicast summary
+      when: ansible_network_os == 'cisco.iosxr.iosxr'
+      register: show_bgp_c
+
+    - name: ARISTA // COLLECT BGP INFO
+      arista.eos.eos_command:
+        commands:
+          - show bgp ipv4 unicast summary
+      when: ansible_network_os == 'arista.eos.eos'
+      register: show_bgp_a
+      become: yes
+      become_method: enable
+    
+    - name: CUMULUS // COLLECT BGP INFO
+      nclu:
+        commands:
+        - show bgp ipv4 unicast summary
+      register: show_bgp
+
+    - name: CREATE A FILE TO STORE THE OUTPUT
+      ansible.builtin.file:
+        path: output/{{ inventory_hostname }}_bgp_result.txt
+        state: touch
+
+    - name: CISCO // SAVE THE RESULT
+      ansible.builtin.copy:
+        content: "{{ show_bgp_c.stdout[0] }}"
+        dest: output/{{ inventory_hostname }}_bgp_result.txt
+      when: ansible_network_os == 'cisco.iosxr.iosxr'
+
+    - name: ARISTA // SAVE THE RESULT
+      ansible.builtin.copy:
+        content: "{{ show_bgp_a.stdout[0] }}"
+        dest: output/{{ inventory_hostname }}_bgp_result.txt
+      when: ansible_network_os == 'arista.eos.eos'
+
+    - name: CREATE A FILE TO STORE THE OUTPUT
+      ansible.builtin.file:
+        path: output/{{ inventory_hostname }}_bgp_result.txt
+        state: touch
+
+    - name: SAVE THE RESULT
+      ansible.builtin.copy:
+        content: "{{ show_bgp.msg }}"
+        dest: output/{{ inventory_hostname }}_bgp_result.txt
+      delegate_to: localhost
+
+...

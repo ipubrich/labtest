@@ -1,0 +1,9 @@
+---
+- example: 'Ethernet1 is up, line protocol is up (connected)'
+ # parse and find the word connected and set as a variable. regex is a bitch
+  getval: '^(?P<if_name>\S+)\s+\S+\s+(?P<if_admin>\w+),.*$'
+  result:
+    "{{ if_name }}":
+      admin_state: {{ if_admin }}
+
+  shared: true

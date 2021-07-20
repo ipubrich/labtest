@@ -1,0 +1,145 @@
+{
+  "ansible_host": "169.254.255.52",
+  "ansible_user": "cisco",
+  "ansible_password": "cisco",
+  "ansible_network_os": "cisco.iosxr.iosxr",
+  "interfaces": {
+    "interface": [
+      {
+        "name": "GigabitEthernet0/0/0/0",
+        "config": {
+          "name": "GigabitEthernet0/0/0/0",
+          "type": "ethernetCsmacd",
+          "mtu": 1514,
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "config": {
+                "index": 0,
+                "description": "Link to A-VX-1",
+                "enabled": true
+              },
+              "ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.0.1",
+                      "config": {
+                        "ip": "10.0.0.1",
+                        "prefix_length": 31
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "GigabitEthernet0/0/0/1",
+        "config": {
+          "name": "GigabitEthernet0/0/0/1",
+          "type": "ethernetCsmacd",
+          "mtu": 1514,
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "config": {
+                "index": 0,
+                "description": "Link to A-VX-3",
+                "enabled": true
+              },
+              "ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.0.4",
+                      "config": {
+                        "ip": "10.0.0.4",
+                        "prefix_length": 31
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "GigabitEthernet0/0/0/2",
+        "config": {
+          "name": "GigabitEthernet0/0/0/2",
+          "type": "ethernetCsmacd",
+          "mtu": 1514,
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "config": {
+                "index": 0,
+                "description": "Link to A-EOS-4",
+                "enabled": true
+              },
+              "ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.0.6",
+                      "config": {
+                        "ip": "10.0.0.6",
+                        "prefix_length": 31
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Loopback0",
+        "config": {
+          "name": "Loopback0",
+          "type": "softwareLoopback",
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "config": {
+                "index": 0,
+                "description": "Announced in BGP",
+                "enabled": true
+              },
+              "ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.255.22",
+                      "config": {
+                        "ip": "10.0.255.22",
+                        "prefix_length": 32
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

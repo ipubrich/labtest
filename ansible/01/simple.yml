@@ -1,0 +1,12 @@
+---
+- name: TEST PLAYBOOKS
+  hosts: A-EOS-4
+  connection: ansible.netcommon.network_cli
+  gather_facts: no
+
+  tasks:
+    - name: COLLECTING INFO
+      arista.eos.eos_command:
+          commands:
+            - show version
+...

@@ -1,0 +1,7 @@
+EOS1 ansible_ssh_host=169.254.255.54 ansible_network_os=eos ansible_user=admin ansible_password=admin
+
+[network]
+A-EOS-4
+A-XR-2
+A-VX-1
+A-VX-3

@@ -1,0 +1,44 @@
+{% for ni_entry in network_instances.network_instance %}
+{% if ni_entry.config.name == 'default' %}
+{% for p_entry in ni_entry.protocols.protocol %}
+{% if p_entry.config.identifier == 'BGP' %}
+router bgp {{ p_entry.bgp.global.config.as }}
+{% if p_entry.bgp.global.config.router_id is defined %}
+router-id {{ p_entry.bgp.global.config.router_id }}
+{% endif %}
+{% for n_entry in p_entry.bgp.neighbors.neighbor %}
+neighbor {{ n_entry.config.neighbor_address }} remote-as {{
+n_entry.config.peer_as }}
+{% endfor %}
+!
+{% for as_entry in p_entry.bgp.global.afi_safis.afi_safi %}
+{% if as_entry.config.afi_safi_name == 'IPV4_UNICAST' %}
+address-family ipv4
+{% if p_entry.bgp.global.config.router_id is defined %}
+network {{ p_entry.bgp.global.config.router_id }}/32
+{% endif %}
+{% for n_entry in p_entry.bgp.neighbors.neighbor %}
+{% for n_as_entry in n_entry.afi_safis.afi_safi %}
+{% if n_as_entry.config.afi_safi_name == as_entry.config.afi_safi_name %}
+{% if n_as_entry.apply_policy is defined and n_as_entry.apply_policy.config is
+defined %}
+{% if n_as_entry.apply_policy.config.import_policy %}
+neighbor {{ n_entry.config.neighbor_address }} route-map {{
+n_as_entry.apply_policy.config.import_policy }} in
+{% endif %}
+{% if n_as_entry.apply_policy.config.export_policy %}
+neighbor {{ n_entry.config.neighbor_address }} route-map {{
+n_as_entry.apply_policy.config.export_policy }} out
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+!
+{% endif %}
+{% endfor %}
+!
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}

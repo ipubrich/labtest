@@ -1,0 +1,21 @@
+---
+- name: SAMPLE
+  hosts: EOS1
+  connection: network_cli
+  gather_facts: no
+  collections:
+    - arista.eos
+  
+  tasks:
+    - name: COLLECTING ARISTA FACTS
+      arista.eos.eos_facts:
+        gather_subset:
+          - all
+      become: yes
+      become_method: enable
+      register: collected_data
+
+    - name: VERIFY DETAILS
+      debug:
+        msg: "{{ collected_data }}"
+...

@@ -1,0 +1,1777 @@
+<head><title> Cisco-IOS-XR-ifmgr-cfg Cisco-IOS-XR-ipv4-io-cfg Cisco-IOS-XR-ipv6-io-cfg 
+</title>
+<style type="text/css" media="all">
+
+body, h1, h2, h3, h4, h5, h6, p, td, table td, input, select {
+        font-family: Verdana, Helvetica, Arial, sans-serif;
+        font-size: 10pt;
+}
+
+body, ol, li, h2 {padding:0; margin: 0;}
+
+ol#root  {padding-left: 5px; margin-top: 2px; margin-bottom: 1px;
+          list-style: none;}
+
+#root ol {padding-left: 5px; margin-top: 2px; margin-bottom: 1px;
+          list-style: none;}
+
+#root li {margin-bottom: 1px; padding-left: 5px;  margin-top: 2px;
+          font-size: x-small;}
+
+.panel   {border-bottom: 1px solid #999; margin-bottom: 2px; margin-top: 2px;
+          background: #eee;}
+
+#root ul {margin-bottom: 1px; margin-top: 2px; list-style-position: inside;}
+
+#root a {text-decoration: none;}
+
+.folder {
+   background:url(data:image/gif;base64,R0lGODlhGgAOALMLAJmZmYuLi3p6ev///+zs7MzMzGZmZqqqqrS0tLq6uuHh4f///wAAAAAAAAAAAAAAACH5BAEAAAsALAAAAAAaAA4AAASJcMlJq714qgROKUtxAABBgJkUFMQwFEhyFoFAKini7idSHwGDQXAYYAADxQdBOjiBQqGgYKx4AomCYoYAHqLRVVUCKCBdSthhCgYDKIDuTpnoGgptgxged3FHBgpgU2MTASsmdCM1gkNFGDVaHx91QQQ3KZGSZocHBCEpEgIrCYdxn6EVAnoIGREAOw==) no-repeat;
+float: left; padding-right: 30px;margin-left: 3px;
+
+}
+
+.doc {
+   background:url(data:image/gif;base64,R0lGODlhDAAOALMJAMzMzODg4P///+np6a+vr+7u7jMzM5mZmYmJif///wAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAkALAAAAAAMAA4AAARFEEhyCAEjackPCESwBRxwCKD4BSSACCgxrKyJ3B42sK2FSINgsAa4AApI4W5yFCCTywts+txJp9TC4IrFcruwi2FMLgMiADs=) no-repeat;
+float: left; padding-right: 10px; margin-left: 3px;
+cursor: pointer;
+
+}
+
+.leaf {
+   background:url(data:image/gif;base64,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) no-repeat;
+float: left; padding-right: 10px;margin-left: 3px;
+
+}
+
+.leaf-list {
+   background:url(data:image/gif;base64,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) no-repeat;
+float: left; padding-right: 10px; margin-left: 3px;
+
+}
+
+.action {
+   background:url(data:image/gif;base64,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) no-repeat;
+float: left; height: 14px; width: 12px; padding-right: 10px; margin-left: 3px;
+
+}
+
+.tier1  {margin-left: 0;     }
+.tier2  {margin-left: 1.5em; }
+.tier3  {margin-left: 3em;   }
+.tier4  {margin-left: 4.5em; }
+.tier5  {margin-left: 6em;   }
+.tier6  {margin-left: 7.5em; }
+.tier7  {margin-left: 9em;   }
+.tier8  {margin-left: 10.5em;}
+.tier9  {margin-left: 12em;  }
+.tier10 {margin-left: 13.5em;}
+.tier11 {margin-left: 15em;  }
+.tier12 {margin-left: 16.5em;}
+
+.level1 {padding-left: 0;    }
+.level2 {padding-left: 1em;  }
+.level3 {padding-left: 2em;  }
+.level4 {padding-left: 3em;  }
+</style>
+
+<script language="javascript1.2">
+function toggleRows(elm) {
+ var rows = document.getElementsByTagName("TR");
+ elm.style.backgroundImage = "url(data:image/gif;base64,R0lGODlhGgAOALMLAJmZmYuLi3p6ev///+zs7MzMzGZmZqqqqrS0tLq6uuHh4f///wAAAAAAAAAAAAAAACH5BAEAAAsALAAAAAAaAA4AAASJcMlJq714qgROKUtxAABBgJkUFMQwFEhyFoFAKini7idSHwGDQXAYYAADxQdBOjiBQqGgYKx4AomCYoYAHqLRVVUCKCBdSthhCgYDKIDuTpnoGgptgxged3FHBgpgU2MTASsmdCM1gkNFGDVaHx91QQQ3KZGSZocHBCEpEgIrCYdxn6EVAnoIGREAOw==)";
+ var newDisplay = "none";
+ var thisID = elm.parentNode.parentNode.parentNode.id + "-";
+ // Are we expanding or contracting? If the first child is hidden, we expand
+  for (var i = 0; i < rows.length; i++) {
+   var r = rows[i];
+   if (matchStart(r.id, thisID, true)) {
+    if (r.style.display == "none") {
+     if (document.all) newDisplay = "block"; //IE4+ specific code
+     else newDisplay = "table-row"; //Netscape and Mozilla
+     elm.style.backgroundImage = "url(data:image/gif;base64,R0lGODlhGgAOALMLAJmZmYqKiv///+zs7MzMzGZmZrOzs7q6uqqqqnZ2duHh4f///wAAAAAAAAAAAAAAACH5BAEAAAsALAAAAAAaAA4AAASScMlJq714qgMMIQuBAMAwZBRADIJAGMfwBQE6GW0uGzRS2wuAQPHhABAIAyBAABSe0IJKgiAEDgSF7OVDBKNQwEQlbBG5CZAiAA4oxsoc8WBAFEALe9SQ6rS2dU5vCwJsTwECKUwmcyMBCYMhUHgTj1kfRTwFJxKFBYgVlpdNNCUVBHcWCUwHpQacFgJCqp98GBEAOw==)";
+    }
+    break;
+   }
+ }
+
+ // When expanding, only expand one level.  Collapse all desendants.
+ var matchDirectChildrenOnly = (newDisplay != "none");
+
+ for (var j = 0; j < rows.length; j++) {
+   var s = rows[j];
+   if (matchStart(s.id, thisID, matchDirectChildrenOnly)) {
+     s.style.display = newDisplay;
+     var cell = s.getElementsByTagName("TD")[0];
+     var tier = cell.getElementsByTagName("DIV")[0];
+     var folder = tier.getElementsByTagName("A")[0];
+     if (folder.getAttribute("onclick") != null) {
+     folder.style.backgroundImage = "url(data:image/gif;base64,R0lGODlhGgAOALMLAJmZmYuLi3p6ev///+zs7MzMzGZmZqqqqrS0tLq6uuHh4f///wAAAAAAAAAAAAAAACH5BAEAAAsALAAAAAAaAA4AAASJcMlJq714qgROKUtxAABBgJkUFMQwFEhyFoFAKini7idSHwGDQXAYYAADxQdBOjiBQqGgYKx4AomCYoYAHqLRVVUCKCBdSthhCgYDKIDuTpnoGgptgxged3FHBgpgU2MTASsmdCM1gkNFGDVaHx91QQQ3KZGSZocHBCEpEgIrCYdxn6EVAnoIGREAOw==)";
+     }
+   }
+ }
+}
+
+function matchStart(target, pattern, matchDirectChildrenOnly) {
+ var pos = target.indexOf(pattern);
+ if (pos != 0)
+    return false;
+ if (!matchDirectChildrenOnly)
+    return true;
+ if (target.slice(pos + pattern.length, target.length).indexOf("-") >= 0)
+    return false;
+ return true;
+}
+
+function collapseAllRows() {
+ var rows = document.getElementsByTagName("TR");
+ for (var i = 0; i < rows.length; i++) {
+   var r = rows[i];
+   if (r.id.indexOf("-") >= 0) {
+     r.style.display = "none";
+   }
+ }
+}
+
+function expandAllRows() {
+  var rows = document.getElementsByTagName("TR");
+  for (var i = 0; i < rows.length; i ++) {
+    var r = rows[i];
+    if (r.id.indexOf("-") >= 0) {
+      r.style.display = "table-row";
+    }
+  }
+}
+</script>
+
+<body onload="collapseAllRows();">
+<a href="http://www.tail-f.com">
+   <img src="data:image/gif;base64,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" />
+</a>
+<div class="app">
+<div style="background: #eee; border: dashed 1px #000;">
+<h1> Module: <font color=blue>Cisco-IOS-XR-ifmgr-cfg</font>, Namespace:
+                     <font color=blue>http://cisco.com/ns/yang/Cisco-IOS-XR-ifmgr-cfg</font>, Prefix:
+                     <font color=blue>ifmgr-cfg</font></h1> 
+<h1> Module: <font color=blue>Cisco-IOS-XR-ipv4-io-cfg</font>, Namespace:
+                     <font color=blue>http://cisco.com/ns/yang/Cisco-IOS-XR-ipv4-io-cfg</font>, Prefix:
+                     <font color=blue>ipv4-io-cfg</font></h1> 
+<h1> Module: <font color=blue>Cisco-IOS-XR-ipv6-io-cfg</font>, Namespace:
+                     <font color=blue>http://cisco.com/ns/yang/Cisco-IOS-XR-ipv6-io-cfg</font>, Prefix:
+                     <font color=blue>ipv6-io-cfg</font></h1> 
+
+ <table width="100%">
+
+ <tr>
+  <!-- specifing one or more widths keeps columns
+       constant despite changes in visible content -->
+  <th align=left>
+     Element
+     <a href='#' onclick='expandAllRows();'>[+]Expand all</a>
+     <a href='#' onclick='collapseAllRows();'>[-]Collapse all</a>
+  </th>
+  <th align=left>Schema</th>
+  <th align=left>Type</th>
+  <th align=left>Flags</th>
+  <th align=left>Opts</th>
+  <th align=left>Status</th>
+  <th align=left>Path</th>
+</tr>
+<tr id="1" class="a">
+                         <td id="p1">
+                            <div id="p2" class="tier1">
+                               <a href="#" id="p3"
+                                  onclick="toggleRows(this);return false;"
+                                  class="folder">&nbsp;
+                               </a>
+                               <font color=blue>Cisco-IOS-XR-ifmgr-cfg</font>
+                            </div>
+                         </td> 
+<td>module</td><td></td><td></td><td></td><td>
+                        </td></tr>
+
+        <tr id="1-1" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier2">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Global scoped configuration for interfaces">global-interface-configuration</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:global-interface-configuration</td>
+        </tr>
+        <tr id="1-1-1" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier3>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Enable or disable link-status messages"> <em> link-status </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="Link-status-enum
+enumeration
+ : {default,disable,software-interfaces,}">Link-status-enum</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:global-interface-configuration/ifmgr-cfg:link-status</td>
+        </tr>
+        <tr id="1-2" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier2">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="interface configurations">interface-configurations</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations</td>
+        </tr>
+        <tr id="1-2-2" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier3">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="The configuration for an interface">interface-configuration[active interface-name]</abbr>
+              </div>
+            </td>
+        <td nowrap>list</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration</td>
+        </tr>
+        <tr id="1-2-2-1" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier4">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Whether this interface's state changes are
+dampened or not">dampening</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:dampening</td>
+        </tr>
+        <tr id="1-2-2-1-1" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Dampening Arguments"> <em> args </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="enumeration
+ : {default-values,specify-half-life,specify-all,specify-rp,}">enumeration</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:dampening/ifmgr-cfg:args</td>
+        </tr>
+        <tr id="1-2-2-1-2" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Decay half life (in minutes)"> <em> half-life </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [1..45]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:dampening/ifmgr-cfg:half-life</td>
+        </tr>
+        <tr id="1-2-2-1-3" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Reuse threshold"> <em> reuse-threshold </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [1..20000]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:dampening/ifmgr-cfg:reuse-threshold</td>
+        </tr>
+        <tr id="1-2-2-1-4" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Suppress threshold"> <em> suppress-threshold </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [1..20000]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:dampening/ifmgr-cfg:suppress-threshold</td>
+        </tr>
+        <tr id="1-2-2-1-5" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Max suppress time (in minutes)"> <em> suppress-time </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [1..255]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:dampening/ifmgr-cfg:suppress-time</td>
+        </tr>
+        <tr id="1-2-2-1-6" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Restart penalty"> <em> restart-penalty </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [0..20000]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:dampening/ifmgr-cfg:restart-penalty</td>
+        </tr>
+        <tr id="1-2-2-2" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier4">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="The MTU configuration for the interface">mtus</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:mtus</td>
+        </tr>
+        <tr id="1-2-2-2-7" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier5">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="The MTU for the interface">mtu[owner]</abbr>
+              </div>
+            </td>
+        <td nowrap>list</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:mtus/ifmgr-cfg:mtu</td>
+        </tr>
+        <tr id="1-2-2-2-7-1" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier6>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The Owner of the interface - eg. for
+'LoopbackX' main interface this is 'loopback'">  owner </abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="xr:Cisco-ios-xr-string
+string
+ {pattern = [\w\-\.:,_@#%$\+=\|;]+}">xr:Cisco-ios-xr-string</abbr></td>
+                
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:mtus/ifmgr-cfg:mtu/ifmgr-cfg:owner</td>
+        </tr>
+        <tr id="1-2-2-2-7-2" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier6>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The MTU value">  mtu </abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [64..65535]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:mtus/ifmgr-cfg:mtu/ifmgr-cfg:mtu</td>
+        </tr>
+        <tr id="1-2-2-3" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier4">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="The encapsulation on the interface">encapsulation</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:encapsulation</td>
+        </tr>
+        <tr id="1-2-2-3-8" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The encapsulation - e.g. hdlc, ppp"> <em> encapsulation </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="string
+">string</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:encapsulation/ifmgr-cfg:encapsulation</td>
+        </tr>
+        <tr id="1-2-2-3-9" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The options for this capsulation, usually '0'"> <em> capsulation-options </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:encapsulation/ifmgr-cfg:capsulation-options</td>
+        </tr>
+        <tr id="1-2-2-4" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The existence of this configuration indicates
+the interface is shut down"> <em> shutdown </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="empty
+">empty</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:shutdown</td>
+        </tr>
+        <tr id="1-2-2-5" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The mode in which an interface is running. The
+existence of this object causes the creation of
+the software virtual/subinterface."> <em> interface-virtual </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="empty
+">empty</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:interface-virtual</td>
+        </tr>
+        <tr id="1-2-2-6" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The secondary admin state of the interface"> <em> secondary-admin-state </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="Secondary-admin-state-enum
+enumeration
+ : {normal,maintenance,}">Secondary-admin-state-enum</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:secondary-admin-state</td>
+        </tr>
+        <tr id="1-2-2-7" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The mode in which an interface is running. The
+existence of this object causes the creation of
+the software subinterface."> <em> interface-mode-non-physical </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="Interface-mode-enum
+enumeration
+ : {default,point-to-point,multipoint,l2-transport,}">Interface-mode-enum</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:interface-mode-non-physical</td>
+        </tr>
+        <tr id="1-2-2-8" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The bandwidth of the interface in kbps"> <em> bandwidth </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [0..4294967295]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:bandwidth</td>
+        </tr>
+        <tr id="1-2-2-9" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Enable interface and line-protocol state change
+alarms"> <em> link-status </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="empty
+">empty</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:link-status</td>
+        </tr>
+        <tr id="1-2-2-10" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The description of this interface"> <em> description </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="string
+">string</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:description</td>
+        </tr>
+        <tr id="1-2-2-11" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Whether the interface is active or
+preconfigured">  active </abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="Interface-active
+string
+ {pattern = (act)|(pre)}">Interface-active</abbr></td>
+                
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:active</td>
+        </tr>
+        <tr id="1-2-2-12" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The name of the interface">  interface-name </abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="xr:Interface-name
+string
+ {pattern = [a-zA-Z0-9._/-]+}">xr:Interface-name</abbr></td>
+                
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ifmgr-cfg:interface-name</td>
+        </tr>
+        <tr id="1-2-2-13" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier4">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Interface IPv4 Network configuration data">ipv4-io-cfg:ipv4-network</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network</td>
+        </tr>
+        <tr id="1-2-2-13-10" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier5">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Interface ipv4 bgp configuration">ipv4-io-cfg:bgp-pa</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp-pa</td>
+        </tr>
+        <tr id="1-2-2-13-10-3" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier6">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Input">ipv4-io-cfg:input</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp-pa/ipv4-io-cfg:input</td>
+        </tr>
+        <tr id="1-2-2-13-10-3-1" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier7>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="BGP PA configuration on source"> <em> ipv4-io-cfg:source-accounting </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp-pa/ipv4-io-cfg:input/ipv4-io-cfg:source-accounting</td>
+        </tr>
+        <tr id="1-2-2-13-10-3-2" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier7>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="BGP PA configuration on destination"> <em> ipv4-io-cfg:destination-accounting </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp-pa/ipv4-io-cfg:input/ipv4-io-cfg:destination-accounting</td>
+        </tr>
+        <tr id="1-2-2-13-10-4" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier6">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Output">ipv4-io-cfg:output</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp-pa/ipv4-io-cfg:output</td>
+        </tr>
+        <tr id="1-2-2-13-10-4-3" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier7>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="BGP PA configuration on source"> <em> ipv4-io-cfg:source-accounting </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp-pa/ipv4-io-cfg:output/ipv4-io-cfg:source-accounting</td>
+        </tr>
+        <tr id="1-2-2-13-10-4-4" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier7>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="BGP PA configuration on destination"> <em> ipv4-io-cfg:destination-accounting </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp-pa/ipv4-io-cfg:output/ipv4-io-cfg:destination-accounting</td>
+        </tr>
+        <tr id="1-2-2-13-11" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier5">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Enable Verify handling for this interface">ipv4-io-cfg:verify</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:verify</td>
+        </tr>
+        <tr id="1-2-2-13-11-5" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier6>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Source is reachable via any interface or
+interface on which packet was received"> <em> ipv4-io-cfg:reachable </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="Ipv4-reachable
+enumeration
+ : {any,received,}">Ipv4-reachable</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:verify/ipv4-io-cfg:reachable</td>
+        </tr>
+        <tr id="1-2-2-13-11-6" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier6>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Allow router to ping itself (opens
+vulnerability in verification)"> <em> ipv4-io-cfg:self-ping </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="Ipv4-self-ping
+enumeration
+ : {disabled,enabled,}">Ipv4-self-ping</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:verify/ipv4-io-cfg:self-ping</td>
+        </tr>
+        <tr id="1-2-2-13-11-7" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier6>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Allow default route to match when checking
+source address"> <em> ipv4-io-cfg:default-ping </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="Ipv4-default-ping
+enumeration
+ : {disabled,enabled,}">Ipv4-default-ping</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:verify/ipv4-io-cfg:default-ping</td>
+        </tr>
+        <tr id="1-2-2-13-12" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier5">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Interface ipv4 bgp configuration">ipv4-io-cfg:bgp</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp</td>
+        </tr>
+        <tr id="1-2-2-13-12-8" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier6">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Interface ipv4 bgp policy propagation
+configuration">ipv4-io-cfg:qppb</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp/ipv4-io-cfg:qppb</td>
+        </tr>
+        <tr id="1-2-2-13-12-8-5" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier7">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Input">ipv4-io-cfg:input</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp/ipv4-io-cfg:qppb/ipv4-io-cfg:input</td>
+        </tr>
+        <tr id="1-2-2-13-12-8-5-1" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier8>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="QPPB configuration on source"> <em> ipv4-io-cfg:source </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="Ipv4-interface-qppb
+enumeration
+ : {ip-precedence,qos-group,both,}">Ipv4-interface-qppb</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp/ipv4-io-cfg:qppb/ipv4-io-cfg:input/ipv4-io-cfg:source</td>
+        </tr>
+        <tr id="1-2-2-13-12-8-5-2" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier8>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="QPPB configuration on destination"> <em> ipv4-io-cfg:destination </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="Ipv4-interface-qppb
+enumeration
+ : {ip-precedence,qos-group,both,}">Ipv4-interface-qppb</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp/ipv4-io-cfg:qppb/ipv4-io-cfg:input/ipv4-io-cfg:destination</td>
+        </tr>
+        <tr id="1-2-2-13-12-9" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier6">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Interface ipv4 bgp policy propagation flow tag
+configuration">ipv4-io-cfg:flow-tag</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp/ipv4-io-cfg:flow-tag</td>
+        </tr>
+        <tr id="1-2-2-13-12-9-6" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier7">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Input">ipv4-io-cfg:flow-tag-input</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp/ipv4-io-cfg:flow-tag/ipv4-io-cfg:flow-tag-input</td>
+        </tr>
+        <tr id="1-2-2-13-12-9-6-3" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier8>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="FlowTag configuration on source"> <em> ipv4-io-cfg:source </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp/ipv4-io-cfg:flow-tag/ipv4-io-cfg:flow-tag-input/ipv4-io-cfg:source</td>
+        </tr>
+        <tr id="1-2-2-13-12-9-6-4" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier8>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="FlowTag configuration on destination"> <em> ipv4-io-cfg:destination </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:bgp/ipv4-io-cfg:flow-tag/ipv4-io-cfg:flow-tag-input/ipv4-io-cfg:destination</td>
+        </tr>
+        <tr id="1-2-2-13-13" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier5">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Set the IP address of an interface">ipv4-io-cfg:addresses</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:addresses</td>
+        </tr>
+        <tr id="1-2-2-13-13-10" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier6">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Specify a secondary address">ipv4-io-cfg:secondaries</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:addresses/ipv4-io-cfg:secondaries</td>
+        </tr>
+        <tr id="1-2-2-13-13-10-7" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier7">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="IP address and Mask">ipv4-io-cfg:secondary[address]</abbr>
+              </div>
+            </td>
+        <td nowrap>list</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:addresses/ipv4-io-cfg:secondaries/ipv4-io-cfg:secondary</td>
+        </tr>
+        <tr id="1-2-2-13-13-10-7-5" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier8>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Secondary IP address">  ipv4-io-cfg:address </abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="inet:ipv4-address-no-zone
+inet:ipv4-address
+ {pattern = [0-9\.]*}">inet:ipv4-address-no-zone</abbr></td>
+                
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:addresses/ipv4-io-cfg:secondaries/ipv4-io-cfg:secondary/ipv4-io-cfg:address</td>
+        </tr>
+        <tr id="1-2-2-13-13-10-7-6" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier8>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Netmask">  ipv4-io-cfg:netmask </abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="inet:ipv4-address-no-zone
+inet:ipv4-address
+ {pattern = [0-9\.]*}">inet:ipv4-address-no-zone</abbr></td>
+                
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:addresses/ipv4-io-cfg:secondaries/ipv4-io-cfg:secondary/ipv4-io-cfg:netmask</td>
+        </tr>
+        <tr id="1-2-2-13-13-10-7-7" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier8>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="RouteTag"> <em> ipv4-io-cfg:route-tag </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [1..4294967295]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:addresses/ipv4-io-cfg:secondaries/ipv4-io-cfg:secondary/ipv4-io-cfg:route-tag</td>
+        </tr>
+        <tr id="1-2-2-13-13-11" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier6">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="IP address and Mask">ipv4-io-cfg:primary</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td><abbr title="Indicates a primary node is configured.">Presence</abbr></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:addresses/ipv4-io-cfg:primary</td>
+        </tr>
+        <tr id="1-2-2-13-13-11-8" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier7>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="IP address">  ipv4-io-cfg:address </abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="inet:ipv4-address-no-zone
+inet:ipv4-address
+ {pattern = [0-9\.]*}">inet:ipv4-address-no-zone</abbr></td>
+                
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:addresses/ipv4-io-cfg:primary/ipv4-io-cfg:address</td>
+        </tr>
+        <tr id="1-2-2-13-13-11-9" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier7>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Netmask">  ipv4-io-cfg:netmask </abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="inet:ipv4-address-no-zone
+inet:ipv4-address
+ {pattern = [0-9\.]*}">inet:ipv4-address-no-zone</abbr></td>
+                
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:addresses/ipv4-io-cfg:primary/ipv4-io-cfg:netmask</td>
+        </tr>
+        <tr id="1-2-2-13-13-11-10" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier7>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="RouteTag"> <em> ipv4-io-cfg:route-tag </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [1..4294967295]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:addresses/ipv4-io-cfg:primary/ipv4-io-cfg:route-tag</td>
+        </tr>
+        <tr id="1-2-2-13-13-12" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier6>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Enable IP processing without an explicit
+address"> <em> ipv4-io-cfg:unnumbered </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="xr:Interface-name
+string
+ {pattern = [a-zA-Z0-9._/-]+}">xr:Interface-name</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:addresses/ipv4-io-cfg:unnumbered</td>
+        </tr>
+        <tr id="1-2-2-13-13-13" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier6>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="IPv4 address and Mask negotiated via DHCP"> <em> ipv4-io-cfg:dhcp </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="empty
+">empty</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:addresses/ipv4-io-cfg:dhcp</td>
+        </tr>
+        <tr id="1-2-2-13-14" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier5">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="The set of IP destination addresses for UDP
+broadcasts">ipv4-io-cfg:helper-addresses</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:helper-addresses</td>
+        </tr>
+        <tr id="1-2-2-13-14-14" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier6">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="An IP destination addresses for UDP broadcasts">ipv4-io-cfg:helper-address[address vrf-name]</abbr>
+              </div>
+            </td>
+        <td nowrap>list</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:helper-addresses/ipv4-io-cfg:helper-address</td>
+        </tr>
+        <tr id="1-2-2-13-14-14-11" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier7>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="IP destination address">  ipv4-io-cfg:address </abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="inet:ipv4-address-no-zone
+inet:ipv4-address
+ {pattern = [0-9\.]*}">inet:ipv4-address-no-zone</abbr></td>
+                
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:helper-addresses/ipv4-io-cfg:helper-address/ipv4-io-cfg:address</td>
+        </tr>
+        <tr id="1-2-2-13-14-14-12" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier7>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="VRF name">  ipv4-io-cfg:vrf-name </abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="xr:Cisco-ios-xr-string
+ {length = 1..32}string
+ {pattern = [\w\-\.:,_@#%$\+=\|;]+}">xr:Cisco-ios-xr-string</abbr></td>
+                
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:helper-addresses/ipv4-io-cfg:helper-address/ipv4-io-cfg:vrf-name</td>
+        </tr>
+        <tr id="1-2-2-13-15" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="IPv4 forwarding to get enabled on an interface"> <em> ipv4-io-cfg:forwarding-enable </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="empty
+">empty</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:forwarding-enable</td>
+        </tr>
+        <tr id="1-2-2-13-16" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The flag for enabling sending of ICMP mask
+reply messages"> <em> ipv4-io-cfg:icmp-mask-reply </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="empty
+">empty</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:icmp-mask-reply</td>
+        </tr>
+        <tr id="1-2-2-13-17" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Enable TCP MSS Adjust on an interface"> <em> ipv4-io-cfg:tcp-mss-adjust-enable </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="empty
+">empty</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:tcp-mss-adjust-enable</td>
+        </tr>
+        <tr id="1-2-2-13-18" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Disable TTL propagate on an interface"> <em> ipv4-io-cfg:ttl-propagate-disable </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="empty
+">empty</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:ttl-propagate-disable</td>
+        </tr>
+        <tr id="1-2-2-13-19" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Enable point-to-point handling for this
+interface."> <em> ipv4-io-cfg:point-to-point </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="empty
+">empty</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:point-to-point</td>
+        </tr>
+        <tr id="1-2-2-13-20" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="The IP Maximum Transmission Unit"> <em> ipv4-io-cfg:mtu </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [68..65535]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network/ipv4-io-cfg:mtu</td>
+        </tr>
+        <tr id="1-2-2-14" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier4">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Interface IPv4 Network configuration data also
+used for forwarding">ipv4-io-cfg:ipv4-network-forwarding</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network-forwarding</td>
+        </tr>
+        <tr id="1-2-2-14-21" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Enable forwarding of directed broadcast"> <em> ipv4-io-cfg:directed-broadcast </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="empty
+">empty</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network-forwarding/ipv4-io-cfg:directed-broadcast</td>
+        </tr>
+        <tr id="1-2-2-14-22" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Disable sending ICMP unreachables"> <em> ipv4-io-cfg:unreachables </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="empty
+">empty</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network-forwarding/ipv4-io-cfg:unreachables</td>
+        </tr>
+        <tr id="1-2-2-14-23" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier5>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Enable sending ICMP Redirect messages"> <em> ipv4-io-cfg:redirects </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="empty
+">empty</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ifmgr-cfg:interface-configurations/ifmgr-cfg:interface-configuration/ipv4-io-cfg:ipv4-network-forwarding/ipv4-io-cfg:redirects</td>
+        </tr><tr id="7" class="a">
+                         <td id="p1">
+                            <div id="p2" class="tier1">
+                               <a href="#" id="p3"
+                                  onclick="toggleRows(this);return false;"
+                                  class="folder">&nbsp;
+                               </a>
+                               <font color=blue>Cisco-IOS-XR-ipv6-io-cfg</font>
+                            </div>
+                         </td> 
+<td>module</td><td></td><td></td><td></td><td>
+                        </td></tr>
+
+        <tr id="7-3" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier2">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="IPv6 Configuration Data">ipv6-configuration</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ipv6-io-cfg:ipv6-configuration</td>
+        </tr>
+        <tr id="7-3-3" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier3">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="IPv6 fragmented packet assembler">ipv6-assembler</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ipv6-io-cfg:ipv6-configuration/ipv6-io-cfg:ipv6-assembler</td>
+        </tr>
+        <tr id="7-3-3-15" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Number of seconds an assembly queue will hold
+before timeout"> <em> timeout </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [1..120]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ipv6-io-cfg:ipv6-configuration/ipv6-io-cfg:ipv6-assembler/ipv6-io-cfg:timeout</td>
+        </tr>
+        <tr id="7-3-3-16" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Maxinum packets allowed in assembly queues (in
+percent)"> <em> max-packets </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [1..50]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ipv6-io-cfg:ipv6-configuration/ipv6-io-cfg:ipv6-assembler/ipv6-io-cfg:max-packets</td>
+        </tr>
+        <tr id="7-3-4" class="a">
+        
+            <td nowrap id="p4000">
+               <div id="p5000" class="tier3">
+                 <a href="#" id="p6000"
+                    onclick="toggleRows(this);return false"
+                    class="folder">&nbsp;
+                 </a>
+                 <abbr title="Configure IPv6 ICMP parameters">ipv6icmp</abbr>
+              </div>
+            </td>
+        <td nowrap>container</td>
+        <td nowrap></td>
+        <td nowrap>config</td>
+        <td><abbr title="Indicates a ipv6icmp node is configured.">Presence</abbr></td>
+        <td>current</td>
+        <td nowrap>/ipv6-io-cfg:ipv6-configuration/ipv6-io-cfg:ipv6icmp</td>
+        </tr>
+        <tr id="7-3-4-17" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Interval between tokens in milliseconds">  error-interval </abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [0..2147483647]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td></td>
+        <td>current</td>
+        <td nowrap>/ipv6-io-cfg:ipv6-configuration/ipv6-io-cfg:ipv6icmp/ipv6-io-cfg:error-interval</td>
+        </tr>
+        <tr id="7-3-4-18" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier4>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Bucket size"> <em> bucket-size </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [1..200]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ipv6-io-cfg:ipv6-configuration/ipv6-io-cfg:ipv6icmp/ipv6-io-cfg:bucket-size</td>
+        </tr>
+        <tr id="7-3-5" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier3>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Configure IPv6 Path MTU timeout value in minutes"> <em> ipv6-pmtu-time-out </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [1..15]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ipv6-io-cfg:ipv6-configuration/ipv6-io-cfg:ipv6-pmtu-time-out</td>
+        </tr>
+        <tr id="7-3-6" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier3>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="TRUE if enabled, FALSE if disabled"> <em> ipv6-source-route </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ipv6-io-cfg:ipv6-configuration/ipv6-io-cfg:ipv6-source-route</td>
+        </tr>
+        <tr id="7-3-7" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier3>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="TRUE if enabled, FALSE if disabled"> <em> ipv6-pmtu-enable </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="boolean
+">boolean</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ipv6-io-cfg:ipv6-configuration/ipv6-io-cfg:ipv6-pmtu-enable</td>
+        </tr>
+        <tr id="7-3-8" class="a">
+        
+            <td nowrap>
+               <div id=9999 class=tier3>
+                  <a class="leaf">&nbsp;</a>
+                  <attr title="Configure IPv6 hop count limit"> <em> ipv6-hop-limit </em></abbr>
+            
+               </div>
+            </td> 
+        <td nowrap>leaf</td>
+        <td nowrap><abbr title="uint32
+ [1..255]">uint32</abbr></td>
+                
+        <td nowrap>config</td>
+        <td>?</td>
+        <td>current</td>
+        <td nowrap>/ipv6-io-cfg:ipv6-configuration/ipv6-io-cfg:ipv6-hop-limit</td>
+        </tr>
+</table>
+</div>
+</body>
+</html>
+

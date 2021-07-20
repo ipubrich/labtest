@@ -1,0 +1,139 @@
+module nat-service-model {
+    namespace "https://training.karneliuk.com/network_autionation/service";
+    prefix ka-nat-svc;
+
+    organization
+        "Karneliuk.com
+        Postal: SE1 London";
+
+    description
+        "This is a test model used in the network automation training
+        to teach you the concepts of YANG modelling";
+
+    revision 2021-07-01 {
+        description "I copied this from Anton";
+    }
+
+    typedef Service-types {
+        description "The type used to describe the services";
+
+        type enumeration {
+            enum "IPVPN" {
+                value 0;
+                description "This is the service used L3VPN together";
+            }
+            enum "EVPN" {
+                value 1;
+                description "This is the service used L2VPN and L3VPN together";
+            }
+        }
+    }
+    container customers {
+        description "Global scoped defintion of the services";
+        
+        list customer {
+            description "List of all the customers in the network";
+
+            key "id name";
+
+            leaf id {
+                description "Numeric ID of the customer inside the network";
+                type int32 {
+                    range "0..65535";
+                }
+            }
+
+            leaf name {
+                description "The name of the customer's company";
+                type string;
+            }
+
+            leaf mail {
+                description "The contact mail of the customer's company";
+                type string {
+                    pattern '^.*@.*\..*$';
+                }
+            }
+
+            container services {
+                description "Global config of the customer's services";
+
+                list service {
+                    description "List of serivces associated with customer";
+
+                    key "id type";
+
+                    leaf id {
+                        description "The ID of the customer's service";
+                        type uint32 {
+                            range "0..65535";
+                        }
+                    }
+
+                    leaf type {
+                        description "The service type";
+                        type Service-types;
+                    }
+
+                    container sites {
+                        description "The node for sites";
+
+                        list site {
+                            description "All the sites associted with the service";
+
+                            key "id";
+
+                            leaf id {
+                                type uint32 {
+                                    range "0..65535";
+                                }
+                            }
+
+                            leaf site-name {
+                                type string;
+                            }
+
+                            container attributes {
+                                description "The network attributes of the service";
+
+                                leaf rd {
+                                    description "The route distinguisher for BGP-based services";
+                                    type string;
+                                }
+
+                                leaf rt {
+                                    description "The route target for BGP-based services";
+                                    type string;
+                                }
+                            }
+
+                            container endpoints {
+                                description "The node for endpoints";
+
+                                list endpoint {
+                                    description "The list of all endpoints for the service";
+
+                                    key "hostname interface";
+
+                                    leaf hostname {
+                                        type string;
+                                    }
+
+                                    leaf interface {
+                                        type string;
+                                    }
+
+                                    leaf ip_address {
+                                        type string {
+                                            pattern '^[0..9a..fA..F\.:/].*$';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

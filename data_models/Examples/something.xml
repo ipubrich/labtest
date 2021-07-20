@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="nat-service-model"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ka-nat-svc="https://training.karneliuk.com/network_autionation/service">
+  <namespace uri="https://training.karneliuk.com/network_autionation/service"/>
+  <prefix value="ka-nat-svc"/>
+  <organization>
+    <text>Karneliuk.com
+Postal: SE1 London</text>
+  </organization>
+  <description>
+    <text>This is a test model used in the network automation training
+to teach you the concepts of YANG modelling</text>
+  </description>
+  <revision date="2021-07-01">
+    <description>
+      <text>I copied this from Anton</text>
+    </description>
+  </revision>
+  <typedef name="Service-types">
+    <description>
+      <text>The type used to describe the services</text>
+    </description>
+    <type name="enumeration">
+      <enum name="IPVPN">
+        <value value="0"/>
+        <description>
+          <text>This is the service used L3VPN together</text>
+        </description>
+      </enum>
+      <enum name="EVPN">
+        <value value="1"/>
+        <description>
+          <text>This is the service used L2VPN and L3VPN together</text>
+        </description>
+      </enum>
+    </type>
+  </typedef>
+  <container name="customers">
+    <description>
+      <text>Global scoped defintion of the services</text>
+    </description>
+    <list name="customer">
+      <description>
+        <text>List of all the customers in the network</text>
+      </description>
+      <key value="id name"/>
+      <leaf name="id">
+        <description>
+          <text>Numeric ID of the customer inside the network</text>
+        </description>
+        <type name="int32">
+          <range value="0..65535"/>
+        </type>
+      </leaf>
+      <leaf name="name">
+        <description>
+          <text>The name of the customer's company</text>
+        </description>
+        <type name="string"/>
+      </leaf>
+      <leaf name="mail">
+        <description>
+          <text>The contact mail of the customer's company</text>
+        </description>
+        <type name="string">
+          <pattern value="^.*@.*\..*$"/>
+        </type>
+      </leaf>
+      <container name="services">
+        <description>
+          <text>Global config of the customer's services</text>
+        </description>
+        <list name="service">
+          <description>
+            <text>List of serivces associated with customer</text>
+          </description>
+          <key value="id type"/>
+          <leaf name="id">
+            <description>
+              <text>The ID of the customer's service</text>
+            </description>
+            <type name="uint32">
+              <range value="0..65535"/>
+            </type>
+          </leaf>
+          <leaf name="type">
+            <description>
+              <text>The service type</text>
+            </description>
+            <type name="Service-types"/>
+          </leaf>
+          <container name="sites">
+            <description>
+              <text>The node for sites</text>
+            </description>
+            <list name="site">
+              <description>
+                <text>All the sites associted with the service</text>
+              </description>
+              <key value="id"/>
+              <leaf name="id">
+                <type name="uint32">
+                  <range value="0..65535"/>
+                </type>
+              </leaf>
+              <leaf name="site-name">
+                <type name="string"/>
+              </leaf>
+              <container name="attributes">
+                <description>
+                  <text>The network attributes of the service</text>
+                </description>
+                <leaf name="rd">
+                  <description>
+                    <text>The route distinguisher for BGP-based services</text>
+                  </description>
+                  <type name="string"/>
+                </leaf>
+                <leaf name="rt">
+                  <description>
+                    <text>The route target for BGP-based services</text>
+                  </description>
+                  <type name="string"/>
+                </leaf>
+              </container>
+              <container name="endpoints">
+                <description>
+                  <text>The node for endpoints</text>
+                </description>
+                <list name="endpoint">
+                  <description>
+                    <text>The list of all endpoints for the service</text>
+                  </description>
+                  <key value="hostname interface"/>
+                  <leaf name="hostname">
+                    <type name="string"/>
+                  </leaf>
+                  <leaf name="interface">
+                    <type name="string"/>
+                  </leaf>
+                  <leaf name="ip_address">
+                    <type name="string">
+                      <pattern value="^[0..9a..fA..F\.:/].*$"/>
+                    </type>
+                  </leaf>
+                </list>
+              </container>
+            </list>
+          </container>
+        </list>
+      </container>
+    </list>
+  </container>
+</module>

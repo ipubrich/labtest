@@ -1,0 +1,88 @@
+---
+
+- name: CONFIGURING NON-LINUX DEVICES
+  # This playbook splits devices by non linux
+  hosts: nonlinux
+  connection: ansible.netcommon.network_cli
+  gather_facts: no
+  
+  tasks:
+- name: IMPORTING VARIABLES
+  ansible.builtin.include_vars:
+    file: "host_vars/{{ inventory_hostname }}.json"
+  
+  vars:
+    output_directory: results
+
+  tasks:
+    - name: CREATING DIRECTORY FOR VARIABLES
+      delegate_to: localhost
+      ansible.builtin.file:
+        dest: "{{ output_directory }}"
+        state: directory
+
+    # ARISTA PRE-CHANGE STATE 
+    - name: ARISTA TASKS
+      when: ansible_network_os == "arista.eos.eos"
+      block:
+        - name: ARISTA // PRE-CHANGE STATE COLLECTION
+          arista.eos.eos_command:
+            commands:
+              - show ip bgp summary
+          register: show_output
+
+    - name: ARISTA // PRE-CHANGE STATE SAVING
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html#ansible-collections-ansible-builtin-copy-module
+      ansible.builtin.copy:
+        content: "{{ show_output.stdout[0] }}"
+        dest: "{{ output_directory }}/{{ inventory_hostname }}_prechange.txt"
+    
+   
+    # ARISTA CHANGE
+    - name: ARISTA 
+      loop: "{{ groups['all'] }}"
+      when: item.neighbor_address == "10.0.0.9"
+      arista.eos.eos_config:
+        lines:
+          - shutdown
+        parents:
+          - neighbor {{ neighbor.config.enabled }}
+    
+
+
+    # ARISTA POST-CHANGE STATE 
+    - name: ARISTA TASKS
+      when: ansible_network_os == "arista.eos.eos"
+      block:
+        - name: ARISTA // POST-CHANGE STATE COLLECTION
+          arista.eos.eos_command:
+            commands:
+              - show ip interface brief
+          register: show_output
+
+    - name: ARISTA // POST-CHANGE STATE SAVING
+      ansible.builtin.copy:
+        content: "{{ show_output.stdout[0] }}"
+        dest: "{{ output_directory }}/{{ inventory_hostname }}_postchange.txt"
+
+  
+
+- name: CONFIGURING LINUX ONLY DEVICES
+  # This playbook splits devices by linux only
+  hosts: linux
+  gather_facts: no
+  
+  - name: IMPORTING VARIABLES
+  ansible.builtin.include_vars:
+    file: "host_vars/{{ inventory_hostname }}.json"
+    
+  vars:
+    output_directory: results
+
+  tasks:
+    - name: CREATING DIRECTORY FOR VARIABLES
+      delegate_to: localhost
+      ansible.builtin.file:
+        dest: "{{ output_directory }}"
+        state: directory
+...

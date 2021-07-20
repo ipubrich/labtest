@@ -1,0 +1,26 @@
+---
+- name: CISCO // NESTED // BGP CONFIGURING -4-
+  cisco.iosxr.iosxr_config:
+    lines:
+      - remote-as {{ item.config.peer_as }}
+    parents:
+      - router bgp {{ outer_item.bgp.global.config.as }}
+      - address-family ipv4 unicast
+      - neighbor {{ item.config.neighbor_address }}
+  when: ansible_network_os == 'cisco.iosxr.iosxr' and outer_item.identifier == 'BGP'
+  loop: "{{ outer_item.bgp.neighbors.neighbor }}"
+
+
+- name: CISCO // NESTED // BGP CONFIGURING -5-
+  cisco.iosxr.iosxr_config:
+    lines:
+      - route-policy {{ item.afi_safis.afi_safi[0].apply_policy.config.import_policy }} in  
+      - route-policy {{ item.afi_safis.afi_safi[0].apply_policy.config.export_policy }} out
+    parents:
+      - router bgp {{ outer_item.bgp.global.config.as }}
+      - address-family ipv4 unicast
+      - neighbor {{ item.config.neighbor_address }}
+      - address-family ipv4 unicast
+  when: ansible_network_os == 'cisco.iosxr.iosxr' and outer_item.identifier ==  'BGP'  and item.afi_safis.afi_safi[0].config.afi_safi_name == 'IPV4_UNICAST'
+  loop: "{{ outer_item.bgp.neighbors.neighbor }}"
+...

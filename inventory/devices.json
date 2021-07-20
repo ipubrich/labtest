@@ -15,7 +15,7 @@
             {
             "hostname": "A-VX-3",
             "IPv4": "169.254.255.53",
-            "nos": "Cumulus Linux"
+            "nos": "Cumulus Linux" 
             },
             {
             "hostname": "A-EOS-4",

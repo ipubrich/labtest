@@ -98,7 +98,7 @@ for VM in ${LAB_VMS[@]}; do
             if [[ ${VM_LINE} =~ "running" ]]; then
               echo "04 Stopping VM ${VM}"
             sudo virsh destroy ${VM} >> /dev/null # hide on cli 
-            sudo virsh undefine ${VM} >> /dev/null # hide on cli 
+            # sudo virsh undefine ${VM} >> /dev/null # hide on cli 
             else
             echo "04 VM ${VM} is already stopped"
             fi

@@ -1,0 +1,27 @@
+---
+- name: ARISTA // NESTED // BGP CONFIGURING -4-
+  arista.eos.eos_config:
+    lines:
+      - neighbor {{ item.config.neighbor_address }} remote-as {{ item.config.peer_as }}
+    parents:
+      - router bgp {{ outer_item.bgp.global.config.as }}
+  when: ansible_network_os == 'arista.eos.eos' and outer_item.identifier == 'BGP'
+  loop: "{{ outer_item.bgp.neighbors.neighbor }}"
+  become: yes
+  become_method: enable
+
+
+- name: ARISTA // NESTED // BGP CONFIGURING -5-
+  arista.eos.eos_config:
+    lines:
+      - neighbor {{ item.config.neighbor_address }} activate
+      - neighbor {{ item.config.neighbor_address }} route-map {{ item.afi_safis.afi_safi[0].apply_policy.config.import_policy }} in
+      - neighbor {{ item.config.neighbor_address }} route-map {{ item.afi_safis.afi_safi[0].apply_policy.config.export_policy }} out
+    parents:
+      - router bgp {{ outer_item.bgp.global.config.as }}
+      - address-family ipv4
+  when: ansible_network_os == 'arista.eos.eos' and outer_item.identifier == 'BGP' and item.afi_safis.afi_safi[0].config.afi_safi_name == 'IPV4_UNICAST'
+  loop: "{{ outer_item.bgp.neighbors.neighbor }}"
+  become: yes
+  become_method: enable
+...

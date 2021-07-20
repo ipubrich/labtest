@@ -1,0 +1,20 @@
+---
+- name: TEST PLAYBOOKS
+  hosts: network
+  connection: ansible.netcommon.network_cli
+  gather_facts: no
+
+  tasks:
+    - name: IMPORTING VARS
+      ansible.builtin.include_vars:
+        file: "host_vars/{{ inventory_hostname }}.yml"
+
+    - name: DEBUG
+      ansible.builtin.debug:
+        var: ansible_network_os
+
+    - name: COLLECTING INFO     
+      arista.eos.eos_command:
+          commands:
+            - show version
+...

@@ -1,0 +1,39 @@
+---
+- name: TEST PLAYBOOKS
+  # ansible-playbook simple5.yml --limit A-EOS-4
+  # ansible-playbook simple5.yml --limit A-EOS-4 -vvv
+  hosts: network
+  connection: ansible.netcommon.network_cli
+  gather_facts: no
+
+  tasks:
+    - name: IMPORTING VARS
+    # A nice place to store variables for devices
+      ansible.builtin.include_vars:
+        file: "host_vars/{{ inventory_hostname }}.yml"
+
+    ### start 
+
+    - name: COLLECTING INFO  
+      when: ansible_network_os == "arista.eos.eos"
+      arista.eos.eos_command:
+        commands:
+          - show version
+      # save output for use later
+      register: show_output
+    
+    - name: CREATING VARIABLES
+      when: ansible_network_os == "arista.eos.eos"
+      ansible.builtin.set_fact:
+      # grab only stdout_lines output lines which you can then manipulate.
+      # gives "show_output.stdout_lines[0][5]": "Software image version: 4.24.0F" 
+      # split then takes the end after : and grabs just the number
+        sw_version: "{{ show_output.stdout_lines[0][5].split(': ')[-1] }}"
+    
+    - name: DEBUG
+      when: ansible_network_os == "arista.eos.eos"
+      ansible.builtin.debug:
+      # output the parsed variable to screen
+       var: sw_version
+      
+...

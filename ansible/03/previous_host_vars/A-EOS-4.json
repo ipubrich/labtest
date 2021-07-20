@@ -1,0 +1,111 @@
+{
+  "ansible_host": "169.254.255.54",
+  "ansible_user": "admin",
+  "ansible_password": "admin",
+  "ansible_network_os": "arista.eos.eos",
+  "interfaces": {
+    "interface": [
+      {
+        "name": "Ethernet1",
+        "config": {
+          "name": "Ethernet1",
+          "type": "ethernetCsmacd",
+          "mtu": 1514,
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "config": {
+                "index": 0,
+                "description": "Link to A-XR-2",
+                "enabled": true
+              },
+              "ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.0.7",
+                      "config": {
+                        "ip": "10.0.0.7",
+                        "prefix_length": 31
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Ethernet2",
+        "config": {
+          "name": "Ethernet2",
+          "type": "ethernetCsmacd",
+          "mtu": 1514,
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "config": {
+                "index": 0,
+                "description": "Link to A-VX-3",
+                "enabled": true
+              },
+              "ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.0.8",
+                      "config": {
+                        "ip": "10.0.0.8",
+                        "prefix_length": 31
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Loopback0",
+        "config": {
+          "name": "Loopback0",
+          "type": "softwareLoopback",
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "config": {
+                "index": 0,
+                "description": "Announced in BGP",
+                "enabled": true
+              },
+              "ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.255.44",
+                      "config": {
+                        "ip": "10.0.255.44",
+                        "prefix_length": 32
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

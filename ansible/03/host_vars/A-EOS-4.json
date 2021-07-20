@@ -1,0 +1,6 @@
+{
+  "ansible_host": "169.254.255.54",
+  "ansible_user": "admin",
+  "ansible_password": "admin",
+  "ansible_network_os": "arista.eos.eos"
+}

@@ -1,0 +1,88 @@
+module: Cisco-IOS-XR-ifmgr-cfg
+  +--rw global-interface-configuration
+  |  +--rw link-status?   Link-status-enum
+  +--rw interface-configurations
+     +--rw interface-configuration* [active interface-name]
+        +--rw dampening
+        |  +--rw args?                 enumeration
+        |  +--rw half-life?            uint32
+        |  +--rw reuse-threshold?      uint32
+        |  +--rw suppress-threshold?   uint32
+        |  +--rw suppress-time?        uint32
+        |  +--rw restart-penalty?      uint32
+        +--rw mtus
+        |  +--rw mtu* [owner]
+        |     +--rw owner    xr:Cisco-ios-xr-string
+        |     +--rw mtu      uint32
+        +--rw encapsulation
+        |  +--rw encapsulation?         string
+        |  +--rw capsulation-options?   uint32
+        +--rw shutdown?                              empty
+        +--rw interface-virtual?                     empty
+        +--rw secondary-admin-state?                 Secondary-admin-state-enum
+        +--rw interface-mode-non-physical?           Interface-mode-enum
+        +--rw bandwidth?                             uint32
+        +--rw link-status?                           empty
+        +--rw description?                           string
+        +--rw active                                 Interface-active
+        +--rw interface-name                         xr:Interface-name
+        +--rw ipv4-io-cfg:ipv4-network
+        |  +--rw ipv4-io-cfg:bgp-pa
+        |  |  +--rw ipv4-io-cfg:input
+        |  |  |  +--rw ipv4-io-cfg:source-accounting?        boolean
+        |  |  |  +--rw ipv4-io-cfg:destination-accounting?   boolean
+        |  |  +--rw ipv4-io-cfg:output
+        |  |     +--rw ipv4-io-cfg:source-accounting?        boolean
+        |  |     +--rw ipv4-io-cfg:destination-accounting?   boolean
+        |  +--rw ipv4-io-cfg:verify
+        |  |  +--rw ipv4-io-cfg:reachable?      Ipv4-reachable
+        |  |  +--rw ipv4-io-cfg:self-ping?      Ipv4-self-ping
+        |  |  +--rw ipv4-io-cfg:default-ping?   Ipv4-default-ping
+        |  +--rw ipv4-io-cfg:bgp
+        |  |  +--rw ipv4-io-cfg:qppb
+        |  |  |  +--rw ipv4-io-cfg:input
+        |  |  |     +--rw ipv4-io-cfg:source?        Ipv4-interface-qppb
+        |  |  |     +--rw ipv4-io-cfg:destination?   Ipv4-interface-qppb
+        |  |  +--rw ipv4-io-cfg:flow-tag
+        |  |     +--rw ipv4-io-cfg:flow-tag-input
+        |  |        +--rw ipv4-io-cfg:source?        boolean
+        |  |        +--rw ipv4-io-cfg:destination?   boolean
+        |  +--rw ipv4-io-cfg:addresses
+        |  |  +--rw ipv4-io-cfg:secondaries
+        |  |  |  +--rw ipv4-io-cfg:secondary* [address]
+        |  |  |     +--rw ipv4-io-cfg:address      inet:ipv4-address-no-zone
+        |  |  |     +--rw ipv4-io-cfg:netmask      inet:ipv4-address-no-zone
+        |  |  |     +--rw ipv4-io-cfg:route-tag?   uint32
+        |  |  +--rw ipv4-io-cfg:primary!
+        |  |  |  +--rw ipv4-io-cfg:address      inet:ipv4-address-no-zone
+        |  |  |  +--rw ipv4-io-cfg:netmask      inet:ipv4-address-no-zone
+        |  |  |  +--rw ipv4-io-cfg:route-tag?   uint32
+        |  |  +--rw ipv4-io-cfg:unnumbered?    xr:Interface-name
+        |  |  +--rw ipv4-io-cfg:dhcp?          empty
+        |  +--rw ipv4-io-cfg:helper-addresses
+        |  |  +--rw ipv4-io-cfg:helper-address* [address vrf-name]
+        |  |     +--rw ipv4-io-cfg:address     inet:ipv4-address-no-zone
+        |  |     +--rw ipv4-io-cfg:vrf-name    xr:Cisco-ios-xr-string
+        |  +--rw ipv4-io-cfg:forwarding-enable?       empty
+        |  +--rw ipv4-io-cfg:icmp-mask-reply?         empty
+        |  +--rw ipv4-io-cfg:tcp-mss-adjust-enable?   empty
+        |  +--rw ipv4-io-cfg:ttl-propagate-disable?   empty
+        |  +--rw ipv4-io-cfg:point-to-point?          empty
+        |  +--rw ipv4-io-cfg:mtu?                     uint32
+        +--rw ipv4-io-cfg:ipv4-network-forwarding
+           +--rw ipv4-io-cfg:directed-broadcast?   empty
+           +--rw ipv4-io-cfg:unreachables?         empty
+           +--rw ipv4-io-cfg:redirects?            empty
+
+module: Cisco-IOS-XR-ipv6-io-cfg
+  +--rw ipv6-configuration
+     +--rw ipv6-assembler
+     |  +--rw timeout?       uint32
+     |  +--rw max-packets?   uint32
+     +--rw ipv6icmp!
+     |  +--rw error-interval    uint32
+     |  +--rw bucket-size?      uint32
+     +--rw ipv6-pmtu-time-out?   uint32
+     +--rw ipv6-source-route?    boolean
+     +--rw ipv6-pmtu-enable?     boolean
+     +--rw ipv6-hop-limit?       uint32

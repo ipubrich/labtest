@@ -1,0 +1,18 @@
+---
+- name: CONFIGURING NON-LINUX HOSTS
+  hosts: non_linux
+  connection: ansible.netcommon.network_cli
+  gather_facts: no
+  tasks:
+    - name: IMPORTING VARIABLES
+      ansible.builtin.include_vars:
+        file: "custom_vars/{{ inventory_hostname }}-oc.json"
+
+- name: CONFIGURING LINUX HOSTS
+  hosts: linux
+  gather_facts: no
+  tasks:
+    - name: IMPORTING VARIABLES
+      ansible.builtin.include_vars:
+        file: "custom_vars/{{ inventory_hostname }}-oc.json"
+...

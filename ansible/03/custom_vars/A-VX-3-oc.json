@@ -1,0 +1,126 @@
+{
+    "network_instances": {
+      "network_instance": [
+        {
+          "name": "default",
+          "config": {
+            "name": "default",
+            "enabled": True,
+            "router_id": "10.0.255.44",
+            "enabled_address_families": ["IPV4_UNICAST"]
+          },
+          "protocols": {
+            "protocol": [
+              {
+                "identifier": "BGP",
+                "name": "default",
+                "config": {
+                  "identifier": "BGP",
+                  "name": "default",
+                  "enabled": True
+                },
+                "bgp": {
+                  "global": {
+                    "config": {
+                      "as": 65033,
+                      "router_id": "10.0.255.44"
+                    },
+                    "afi_safis": {
+                      "afi_safi": [
+                        {
+                          "afi_safi_name": "IPV4_UNICAST",
+                          "config": {
+                            "afi_safi_name": "IPV4_UNICAST",
+                            "enabled": True
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "neighbors": {
+                    "neighbor": [
+                      {
+                        "neighbor_address": "10.0.0.2",
+                        "config": {
+                          "neighbor_address": "10.0.0.2",
+                          "enabled": True,
+                          "peer_as": 65044
+                        },
+                        "afi_safis": {
+                          "afi_safi": [
+                            {
+                              "afi_safi_name": "IPV4_UNICAST",
+                              "config": {
+                                "afi_safi_name": "IPV4_UNICAST",
+                                "enabled": True
+                              },
+                              "apply_policy": {
+                                "config": {
+                                  "import_policy": "RP_PASS_LO",
+                                  "export_policy": "RP_PASS_LO"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "neighbor_address": "10.0.0.4",
+                        "config": {
+                          "neighbor_address": "10.0.0.4",
+                          "enabled": True,
+                          "peer_as": 65044
+                        },
+                        "afi_safis": {
+                          "afi_safi": [
+                            {
+                              "afi_safi_name": "IPV4_UNICAST",
+                              "config": {
+                                "afi_safi_name": "IPV4_UNICAST",
+                                "enabled": True
+                              },
+                              "apply_policy": {
+                                "config": {
+                                  "import_policy": "RP_PASS_LO",
+                                  "export_policy": "RP_PASS_LO"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "neighbor_address": "10.0.0.8",
+                        "config": {
+                          "neighbor_address": "10.0.0.8",
+                          "enabled": True,
+                          "peer_as": 65044
+                        },
+                        "afi_safis": {
+                          "afi_safi": [
+                            {
+                              "afi_safi_name": "IPV4_UNICAST",
+                              "config": {
+                                "afi_safi_name": "IPV4_UNICAST",
+                                "enabled": True
+                              },
+                              "apply_policy": {
+                                "config": {
+                                  "import_policy": "RP_PASS_LO",
+                                  "export_policy": "RP_PASS_LO"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }  

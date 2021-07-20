@@ -1,0 +1,72 @@
+---
+# PLAY 1 / 2
+- name: CONFIGURING NON-LINUX HOSTS // CONFIGURE BGP
+  hosts: nonlinux
+  connection: ansible.netcommon.network_cli
+  gather_facts: no
+
+  vars:
+    temp_dir: "/tmp/nnat_lab11"
+
+  tasks: 
+    - name: IMPORTING VARS FILE
+      ansible.builtin.include_vars: "custom_vars/{{ inventory_hostname }}-oc.json"
+      delegate_to: localhost
+
+    - name: CREATING TEMP FOLDER
+      ansible.builtin.file: 
+        dest: "{{ temp_dir }}"
+        state: directory
+      delegate_to: localhost
+
+    - name: TEMPLATING CONFIG
+      ansible.builtin.template:
+        src: "templates/bgp_{{ ansible_network_os }}.j2"
+        dest: "{{ temp_dir }}/{{ inventory_hostname }}_bgp.conf"
+      delegate_to: localhost
+
+    - name: CISCO // APPLYING CONFIG
+      cisco.iosxr.iosxr_config:
+        src: "{{ temp_dir }}/{{ inventory_hostname }}_bgp.conf"
+      when: ansible_network_os == 'iosxr'
+
+    - name: ARISTA // APPLYING CONFIG
+      arista.eos.eos_config:
+        src: "{{ temp_dir }}/{{ inventory_hostname }}_bgp.conf"
+      when: ansible_network_os == 'eos'
+      become: yes
+      become_method: enable
+
+
+
+# PLAY 2 / 2
+- name: CONFIGURING NON-LINUX HOSTS // CONFIGURE BGP
+  hosts: linux
+  gather_facts: no
+
+  vars:
+    temp_dir: "/tmp/nnat_lab11"
+
+  tasks: 
+    - name: IMPORTING VARS FILE
+      ansible.builtin.include_vars: "custom_vars/{{ inventory_hostname }}-oc.json"
+      delegate_to: localhost
+
+    - name: CREATING TEMP FOLDER
+      ansible.builtin.file: 
+        dest: "{{ temp_dir }}"
+        state: directory
+      delegate_to: localhost
+
+    - name: TEMPLATING CONFIG
+      ansible.builtin.template:
+        src: "templates/bgp_cumulus.j2"
+        dest: "{{ temp_dir }}/{{ inventory_hostname }}_bgp.conf"
+      delegate_to: localhost
+    
+    - name: CUMULUS // APPLYING CONFIGip 
+      community.network.nclu:
+        template: "{{ lookup('template', 'templates/bgp_cumulus.j2')}}"
+        commit: true
+
+...

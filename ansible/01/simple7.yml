@@ -1,0 +1,58 @@
+---
+- name: TEST PLAYBOOKS
+  # This playbook checks for aristas from a vars folder runs show ver and prints the device version
+  # I havent worked out how to do cumulus yet.
+  # ansible-playbook simple7.yml
+  # ansible-playbook simple7.yml -vvvv -l name
+  hosts: network
+  connection: ansible.netcommon.network_cli
+  gather_facts: no
+
+  collections:
+    - inverse_inc.cumulus
+
+  tasks:
+   ### start ARISTA
+    - name: ARISTA TASKS
+      when: ansible_network_os == "arista.eos.eos"
+      # runs all these as one group of tasks
+      block:
+        - name: IMPORTING VARS
+        # A nice place to store variables for devices
+          ansible.builtin.include_vars:
+            file: "host_vars/{{ inventory_hostname }}.yml"
+   
+        - name: COLLECTING INFO 
+          arista.eos.eos_command:
+            commands:
+              - show version
+          # save output for use later
+          register: show_output
+        
+        - name: CREATING VARIABLES
+          ansible.builtin.set_fact:
+          # grab only stdout_lines output lines which you can then manipulate.
+          # gives "show_output.stdout_lines[0][5]": "Software image version: 4.24.0F" 
+          # split then takes the end after : and grabs just the number
+            sw_version: "{{ show_output.stdout_lines[0][5].split(': ')[-1] }}"
+          # parse data locally to save time
+          delegate_to: localhost
+        
+        - name: DEBUG
+          ansible.builtin.debug:
+          # output the parsed variable to screen
+            var: sw_version
+          # parse data locally to save time
+          delegate_to: localhost
+    
+    ### start CUMULUS
+
+    - name: CUMULUS
+      when: ansible_network_os == "inverse_inc.cumulus"
+      block:
+        - name: COLLECTING INFO
+          cli_command:
+            command: net show version
+          register: show_output
+          delegate_to: localhost      
+...
