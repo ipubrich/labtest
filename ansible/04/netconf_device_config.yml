@@ -1,0 +1,12 @@
+---
+- name: CONFIGURING DEVICES USING NETCONF
+  hosts: non_linux
+  gather_facts: no
+  ################ netconf plugin ####################
+  connection: netconf
+  roles:
+    - route_policy
+
+  
+
+...

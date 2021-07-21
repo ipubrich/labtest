@@ -1,0 +1,40 @@
+---
+- name: SET ENVIRONMENT
+  ansible.builtin.set_fact:
+    temp_folder: /tmp/session07_netconf_homework
+    jtox_driver: openconfig_driver.jtox
+
+- name: CREATE TEMPORARY FOLDER
+  ansible.builtin.file:
+    dest: "{{ temp_folder }}"
+    state: directory
+  delegate_to: localhost
+
+- name: CREATE JTOX DRIVER
+  ansible.builtin.shell: "pyang -f jtox -o {{ temp_folder }}/{{ jtox_driver }} -p ~/OC_YANG/release/models/ ~/OC_YANG/release/models/policy/openconfig-routing-policy.yang"
+  ignore_errors: True
+  delegate_to: localhost
+
+- name: GENERATE XML FROM JSON
+  ansible.builtin.shell: "json2xml -t config -o {{ temp_folder }}/{{ inventory_hostname }}_config.xml {{ temp_folder }}/{{ jtox_driver }} roles/route_policy/files/openconfig_routing_policies.json"
+  delegate_to: localhost
+
+- name: FIX XML FILE PER VENDOR
+  ansible.builtin.include_tasks: "roles/route_policy/tasks/{{ ansible_network_os }}_fix.yml"
+
+- name: PUSHING CONFIG WITH NETCONF
+  when: ansible_network_os != "arista.eos.eos"
+  ansible.netcommon.netconf_config:
+ 
+    xml: "{{ lookup('file', '{{ temp_folder }}/{{ inventory_hostname }}_config.xml') }}"
+
+- name: PUSHING CONFIG WITH NETCONF
+  when: ansible_network_os == "arista.eos.eos"
+  ansible.netcommon.netconf_config:
+    target: running
+    xml: "{{ lookup('file', '{{ temp_folder }}/{{ inventory_hostname }}_config.xml') }}"
+    
+- name: Pause until you can verify updates to an application were successful
+  pause:
+
+...

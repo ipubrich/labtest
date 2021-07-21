@@ -1,0 +1,19 @@
+---
+- name: "{{ ansible_network_os }} // MODIFYING XML"
+  ansible.builtin.replace:
+    path: "{{ temp_folder }}/{{ inventory_hostname }}_config.xml"
+    regexp: '<\?.+\?>\n'
+    replace: ''
+
+- name: "{{ ansible_network_os }} // MODIFYING XML"
+  ansible.builtin.replace:
+    path: "{{ temp_folder }}/{{ inventory_hostname }}_config.xml"
+    regexp: '<oc-rpol:name>PS_LO</oc-rpol:name>'
+    replace: '<oc-rpol:prefix-set-name>PS_LO</oc-rpol:prefix-set-name>'
+
+- name: "{{ ansible_network_os }} // MODIFYING XML"
+  ansible.builtin.replace:
+    path: "{{ temp_folder }}/{{ inventory_hostname }}_config.xml"
+    regexp: '<oc-rpol:policy-result>ACCEPT_ROUTE</oc-rpol:policy-result>'
+    replace: '<oc-rpol:accept-route/>'
+...

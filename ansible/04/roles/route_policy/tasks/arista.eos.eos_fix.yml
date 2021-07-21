@@ -1,0 +1,7 @@
+---
+  - name: FIXING XML -2-
+    ansible.builtin.replace:
+      path: "{{ temp_folder }}/{{ inventory_hostname }}_config.xml"
+      regexp: '<\?.+\?>\n'
+      replace: ''
+...
