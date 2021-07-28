@@ -17,8 +17,10 @@ This project is
 - Postman
 
 ## Development log
-Version '0.1.1':
+Version '0.1.8':
 - The first release
 - Added Yang
 - Re-installed labtest
 - Added data structures
+- forgot to add some stuff
+- we're on python 8 now lab 14

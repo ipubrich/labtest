@@ -1,0 +1,101 @@
+{
+    "network_instances": {
+      "network_instance": [
+        {
+          "name": "default",
+          "config": {
+            "name": "default",
+            "enabled": true,
+            "router_id": "10.0.255.11",
+            "enabled_address_families": ["IPV4_UNICAST"]
+          },
+          "protocols": {
+            "protocol": [
+              {
+                "identifier": "BGP",
+                "name": "default",
+                "config": {
+                  "identifier": "BGP",
+                  "name": "default",
+                  "enabled": true
+                },
+                "bgp": {
+                  "global": {
+                    "config": {
+                      "as": 65011,
+                      "router_id": "10.0.255.11"
+                    },
+                    "afi_safis": {
+                      "afi_safi": [
+                        {
+                          "afi_safi_name": "IPV4_UNICAST",
+                          "config": {
+                            "afi_safi_name": "IPV4_UNICAST",
+                            "enabled": true
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "neighbors": {
+                    "neighbor": [
+                      {
+                        "neighbor_address": "10.0.0.1",
+                        "config": {
+                          "neighbor_address": "10.0.0.1",
+                          "enabled": true,
+                          "peer_as": 65044
+                        },
+                        "afi_safis": {
+                          "afi_safi": [
+                            {
+                              "afi_safi_name": "IPV4_UNICAST",
+                              "config": {
+                                "afi_safi_name": "IPV4_UNICAST",
+                                "enabled": true
+                              },
+                              "apply_policy": {
+                                "config": {
+                                  "import_policy": "RP_PASS_LO",
+                                  "export_policy": "RP_PASS_LO"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "neighbor_address": "10.0.0.3",
+                        "config": {
+                          "neighbor_address": "10.0.0.3",
+                          "enabled": true,
+                          "peer_as": 65044
+                        },
+                        "afi_safis": {
+                          "afi_safi": [
+                            {
+                              "afi_safi_name": "IPV4_UNICAST",
+                              "config": {
+                                "afi_safi_name": "IPV4_UNICAST",
+                                "enabled": true
+                              },
+                              "apply_policy": {
+                                "config": {
+                                  "import_policy": "RP_PASS_LO",
+                                  "export_policy": "RP_PASS_LO"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }  

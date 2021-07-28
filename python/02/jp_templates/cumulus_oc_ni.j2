@@ -1,0 +1,38 @@
+configure terminal
+!
+{%- for ni_entry in network_instances.network_instance %}
+{%- if ni_entry.name == 'default' %}
+{%- for p_entry in ni_entry.protocols.protocol %}
+{%- if p_entry.identifier == 'BGP' %}
+router bgp {{ p_entry.bgp.global.config.as }}
+bgp router-id {{ p_entry.bgp.global.config.router_id }}
+{%- for afsf_entry in p_entry.bgp.global.afi_safis.afi_safi %}
+!
+{%- if afsf_entry.config.afi_safi_name == 'IPV4_UNICAST' and
+afsf_entry.config.enabled %}
+address-family ipv4 unicast
+network {{ p_entry.bgp.global.config.router_id }}/32
+{%- endif %}
+{%- endfor %}
+{%- for nb_entry in p_entry.bgp.neighbors.neighbor %}
+!
+neighbor {{ nb_entry.config.neighbor_address }}
+remote-as {{ nb_entry.config.peer_as }}
+{% if nb_entry.config.enabled %} no shutdown{% else %} shutdown{% endif %}
+{%- for afsf_entry in nb_entry.afi_safis.afi_safi %}
+{%- if afsf_entry.config.afi_safi_name == 'IPV4_UNICAST' and
+afsf_entry.config.enabled %}
+address-family ipv4 unicast
+route-policy {{ afsf_entry.apply_policy.config.import_policy }} in
+route-policy {{ afsf_entry.apply_policy.config.export_policy }} out
+{%- endif %}
+{%- endfor %}
+{%- endfor %}
+!
+!
+{%- endif %}
+{%- endfor %}
+{%- endif %}
+{%- endfor %}
+commit
+end
